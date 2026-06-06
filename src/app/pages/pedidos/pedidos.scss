@@ -21,3 +21,21 @@ table {
   width: 120px;
   text-align: center;
 }
+
+.costs-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #3f51b5;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: #e8eaf6;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background-color: #3f51b5;
+    color: #fff;
+  }
+}

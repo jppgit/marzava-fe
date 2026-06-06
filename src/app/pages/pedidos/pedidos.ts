@@ -70,7 +70,7 @@ export class Pedidos implements OnInit {
 
             this.ordersService.getOrderCosts(order.id).subscribe({
               next: (costsData) => {
-                order.costs = costsData.reduce((acc: number, cost: any) => acc + cost.amount, 0);
+                order.costsTotal = costsData.reduce((acc: number, cost: any) => acc + cost.amount, 0);
               },
               error: (err) => console.error(err)
             });

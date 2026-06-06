@@ -43,7 +43,11 @@
       <!-- Costs Column -->
       <ng-container matColumnDef="costs">
         <th mat-header-cell *matHeaderCellDef> Costos </th>
-        <td mat-cell *matCellDef="let row"> {{row.costs | currency}} </td>
+        <td mat-cell *matCellDef="let row">
+          <a class="costs-link" [routerLink]="['/costos']" [queryParams]="{orderId: row.id}">
+            {{ row.costsTotal | currency }}
+          </a>
+        </td>
       </ng-container>
 
       <!-- Profit Column -->

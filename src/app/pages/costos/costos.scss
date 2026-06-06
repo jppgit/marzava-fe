@@ -13,7 +13,93 @@
   width: 300px;
 }
 
+/* ──────────── Fila de grupo (cabecera de pedido) ──────────── */
+.group-row {
+  background-color: #f5f5f5;
+  font-weight: 500;
+  border-left: 4px solid #3f51b5;
+  transition: background-color 0.2s ease;
+  cursor: default;
+
+  &:hover {
+    background-color: #ede9f7 !important;
+  }
+
+  &.expanded {
+    background-color: #e8eaf6;
+    border-left-color: #5c6bc0;
+  }
+
+  td {
+    font-size: 0.9rem;
+  }
+}
+
+/* ──────────── Fila de detalle (costo individual) ──────────── */
+.detail-row {
+  background-color: #fafafa;
+
+  &:hover {
+    background-color: #f3f3f3 !important;
+  }
+}
+
+.detail-cell {
+  padding-left: 24px !important;
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.detail-id {
+  color: #888;
+}
+
+/* ──────────── Botón de expand ──────────── */
+.col-expand {
+  width: 48px;
+  padding-right: 0 !important;
+}
+
+.expand-btn {
+  color: #3f51b5;
+}
+
+/* ──────────── Badges y chips ──────────── */
+.group-id {
+  font-weight: 600;
+  color: #3f51b5;
+  font-family: monospace;
+}
+
+.total-amount {
+  font-weight: 700;
+  color: #2e7d32;
+}
+
+.cost-count {
+  font-size: 0.75rem;
+  color: #888;
+  margin-left: 6px;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+/* ──────────── Acciones ──────────── */
+.actions-container {
+  display: flex;
+  gap: 4px;
+}
+
 .mat-column-actions {
-  width: 100px;
+  width: 110px;
   text-align: center;
 }
