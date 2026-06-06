@@ -1,0 +1,69 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Editar Pedido' : 'Crear Pedido' }}</h2>
+<mat-dialog-content [formGroup]="form">
+  <div class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput formControlName="title" placeholder="Título del pedido" required>
+      <mat-error *ngIf="form.get('title')?.hasError('required')">El título es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput formControlName="description" placeholder="Descripción"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Total</mat-label>
+      <input matInput type="number" formControlName="total" placeholder="Total" required>
+      <mat-error *ngIf="form.get('total')?.hasError('required')">El total es requerido</mat-error>
+      <mat-error *ngIf="form.get('total')?.hasError('min')">El total debe ser mayor o igual a 0</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Cliente</mat-label>
+      <input type="text"
+             placeholder="Buscar cliente"
+             matInput
+             [formControl]="clientCtrl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onClientSelected($event.option.value)">
+        <mat-option *ngFor="let client of filteredClients" [value]="client">
+          {{client.name}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="form.get('clientId')?.hasError('required')">El cliente es requerido</mat-error>
+    </mat-form-field>
+
+
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Tipo de Pedido</mat-label>
+      <input type="text"
+             placeholder="Buscar tipo"
+             matInput
+             [formControl]="orderTypeCtrl"
+             [matAutocomplete]="autoType">
+      <mat-autocomplete #autoType="matAutocomplete" [displayWith]="displayOrderTypeFn" (optionSelected)="onOrderTypeSelected($event.option.value)">
+        <mat-option *ngFor="let type of filteredOrderTypes" [value]="type">
+          {{type.name}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="form.get('orderTypeId')?.hasError('required')">El tipo es requerido</mat-error>
+    </mat-form-field>
+
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option *ngFor="let status of statuses" [value]="status">
+          {{status}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('status')?.hasError('required')">El estado es requerido</mat-error>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="onSave()">{{ isEdit ? 'Guardar' : 'Crear' }}</button>
+</mat-dialog-actions>

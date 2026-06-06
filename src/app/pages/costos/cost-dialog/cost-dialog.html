@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Editar Costo' : 'Crear Costo' }}</h2>
+<mat-dialog-content [formGroup]="form">
+  <div class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Concepto</mat-label>
+      <input matInput formControlName="concept" placeholder="Concepto del costo" required>
+      <mat-error *ngIf="form.get('concept')?.hasError('required')">El concepto es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Monto</mat-label>
+      <input matInput type="number" formControlName="amount" placeholder="Monto" required>
+      <mat-error *ngIf="form.get('amount')?.hasError('required')">El monto es requerido</mat-error>
+      <mat-error *ngIf="form.get('amount')?.hasError('min')">El monto debe ser mayor o igual a 0</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>ID Pedido</mat-label>
+      <input matInput type="number" formControlName="orderId" placeholder="ID del Pedido" required>
+      <mat-error *ngIf="form.get('orderId')?.hasError('required')">El ID de pedido es requerido</mat-error>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="onSave()">{{ isEdit ? 'Guardar' : 'Crear' }}</button>
+</mat-dialog-actions>

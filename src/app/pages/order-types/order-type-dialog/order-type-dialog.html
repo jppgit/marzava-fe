@@ -1,0 +1,14 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Editar Tipo de Orden' : 'Crear Tipo de Orden' }}</h2>
+<mat-dialog-content [formGroup]="form">
+  <div class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Nombre del tipo" required>
+      <mat-error *ngIf="form.get('name')?.hasError('required')">El nombre es requerido</mat-error>
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="onSave()">{{ isEdit ? 'Guardar' : 'Crear' }}</button>
+</mat-dialog-actions>

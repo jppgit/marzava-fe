@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Editar Cliente' : 'Crear Cliente' }}</h2>
+<mat-dialog-content [formGroup]="form">
+  <div class="form-container">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="name" placeholder="Nombre completo" required>
+      <mat-error *ngIf="form.get('name')?.hasError('required')">El nombre es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Teléfono</mat-label>
+      <input matInput formControlName="phone" placeholder="Teléfono">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Dirección</mat-label>
+      <input matInput formControlName="address" placeholder="Dirección">
+    </mat-form-field>
+    
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>City ID</mat-label>
+      <input matInput type="number" formControlName="cityId" placeholder="ID de Ciudad">
+    </mat-form-field>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="onSave()">{{ isEdit ? 'Guardar' : 'Crear' }}</button>
+</mat-dialog-actions>

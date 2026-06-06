@@ -1,0 +1,193 @@
+<div class="modal-wrapper">
+  <div class="modal-body-scroll premium-theme">
+    
+    <div class="form-header">
+      <div class="title-block">
+        <h1>MARZAVA</h1>
+        <span class="badge">ATELIER</span>
+      </div>
+      <p class="subtitle">Ficha Técnica de Toma de Medidas</p>
+    </div>
+
+    <form [formGroup]="medidasForm" (ngSubmit)="onSubmit()" class="premium-form">
+      
+      <!-- Tarjeta de Información del Cliente -->
+      <div class="premium-card client-card">
+        <div class="card-header">
+          <div class="header-icon"><i class="material-icons">person_outline</i></div>
+          <h2>Información del Cliente</h2>
+        </div>
+        <div class="card-body client-grid">
+          <div class="input-group">
+            <label>Nombre Completo</label>
+            <input type="text" formControlName="nombreCliente" placeholder="Ej. Valeria Montes">
+          </div>
+          <div class="input-group">
+            <label>Teléfono</label>
+            <input type="text" formControlName="telefono" placeholder="Ej. +57 300 000 0000">
+          </div>
+          <div class="input-group full-width">
+            <label>Dirección</label>
+            <input type="text" formControlName="direccion" placeholder="Dirección de entrega o contacto">
+          </div>
+          <div class="input-group full-width">
+            <label>Observaciones</label>
+            <textarea formControlName="observaciones" rows="3" placeholder="Anota cualquier detalle importante, preferencias, tipo de tela, ajustes especiales..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="measurements-grid-layout">
+        
+        <!-- SECCIÓN 1: TORSO Y FRENTE -->
+        <div class="premium-card">
+          <div class="card-header">
+            <div class="header-icon"><i class="material-icons">accessibility_new</i></div>
+            <h2>Torso y Frente</h2>
+          </div>
+          <div class="card-body measure-grid">
+            <div class="measure-item"><label>Contorno Cuello</label><input type="text" formControlName="contornoCuello"></div>
+            <div class="measure-item"><label>Longitud Hombro</label><input type="text" formControlName="longitudHombro"></div>
+            <div class="measure-item"><label>Ancho Pecho</label><input type="text" formControlName="anchoPecho"></div>
+            <div class="measure-item"><label>Separación Busto</label><input type="text" formControlName="separacionBusto"></div>
+            <div class="measure-item"><label>Altura Busto</label><input type="text" formControlName="alturaBusto"></div>
+            <div class="measure-item"><label>Altura Imperio</label><input type="text" formControlName="alturaImperio"></div>
+            <div class="measure-item"><label>Radio Copa</label><input type="text" formControlName="radioCopa"></div>
+            <div class="measure-item"><label>Tamaño Copa</label><input type="text" formControlName="tamanoCopa"></div>
+            <div class="measure-item"><label>Escote Delantero</label><input type="text" formControlName="escoteDelantero"></div>
+            <div class="measure-item"><label>Talle Delantero</label><input type="text" formControlName="talleDelantero"></div>
+            <div class="measure-item"><label>Centro Delantero</label><input type="text" formControlName="centroDelantero"></div>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 2: ESPALDA Y BRAZOS -->
+        <div class="premium-card">
+          <div class="card-header">
+            <div class="header-icon"><i class="material-icons">airline_seat_flat_angled</i></div>
+            <h2>Espalda y Brazos</h2>
+          </div>
+          <div class="card-body measure-grid">
+            <div class="measure-item"><label>Centro Espalda</label><input type="text" formControlName="centroEspalda"></div>
+            <div class="measure-item"><label>Escote Espalda</label><input type="text" formControlName="escoteEspalda"></div>
+            <div class="measure-item"><label>Ancho Espalda</label><input type="text" formControlName="anchoEspalda"></div>
+            <div class="measure-item"><label>Talle Espalda</label><input type="text" formControlName="talleEspalda"></div>
+            <div class="measure-item"><label>Espalda Hombro</label><input type="text" formControlName="espaldaHombroHombro"></div>
+            <div class="measure-item"><label>Contorno Sisa</label><input type="text" formControlName="contornoSisa"></div>
+            <div class="measure-item"><label>Contorno Brazo</label><input type="text" formControlName="contornoBrazo"></div>
+            <div class="measure-item"><label>Contorno Antebrazo</label><input type="text" formControlName="contornoAntebrazo"></div>
+            <div class="measure-item"><label>Contorno Muñeca</label><input type="text" formControlName="contornoMuneca"></div>
+            <div class="measure-item"><label>Contorno Puño</label><input type="text" formControlName="contornoPuno"></div>
+            <div class="measure-item"><label>Largo Puño</label><input type="text" formControlName="largoPuno"></div>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 3: MEDIDAS INFERIORES -->
+        <div class="premium-card">
+          <div class="card-header">
+            <div class="header-icon"><i class="material-icons">straighten</i></div>
+            <h2>Contornos y Medidas Inferiores</h2>
+          </div>
+          <div class="card-body measure-grid">
+            <div class="measure-item"><label>Contorno Strapless</label><input type="text" formControlName="contornoStrapless"></div>
+            <div class="measure-item"><label>Contorno Busto</label><input type="text" formControlName="contornoBusto"></div>
+            <div class="measure-item"><label>Contorno Imperio</label><input type="text" formControlName="contornoImperio"></div>
+            <div class="measure-item"><label>Contorno Cintura</label><input type="text" formControlName="contornoCintura"></div>
+            <div class="measure-item"><label>Contorno Base A</label><input type="text" formControlName="contornoBaseA"></div>
+            <div class="measure-item"><label>Contorno Cadera (B)</label><input type="text" formControlName="contornoCaderaBaseB"></div>
+            <div class="measure-item"><label>Altura Cadera</label><input type="text" formControlName="alturaCadera"></div>
+            <div class="measure-item"><label>Costado</label><input type="text" formControlName="costado"></div>
+            <div class="measure-item"><label>Largo a Rodilla</label><input type="text" formControlName="largoHastaRodilla"></div>
+            <div class="measure-item"><label>Largo Entrepierna</label><input type="text" formControlName="largoEntrepierna"></div>
+            <div class="measure-item"><label>Contorno Pierna</label><input type="text" formControlName="contornoPierna"></div>
+            <div class="measure-item"><label>Contorno Rodilla</label><input type="text" formControlName="contornoRodilla"></div>
+            <div class="measure-item"><label>Contorno Pantorrilla</label><input type="text" formControlName="contornoPantorrilla"></div>
+            <div class="measure-item"><label>Contorno Tobillo</label><input type="text" formControlName="contornoTobillo"></div>
+            <div class="measure-item"><label>Contorno Bota</label><input type="text" formControlName="contornoBota"></div>
+          </div>
+        </div>
+
+        <!-- SECCIÓN 4: LARGOS ESPECÍFICOS Y TIROS (CAMPOS ANIDADOS) -->
+        <div class="premium-card highlight-card">
+          <div class="card-header">
+            <div class="header-icon"><i class="material-icons">format_line_spacing</i></div>
+            <h2>Largos Específicos y Tiros</h2>
+          </div>
+          <div class="card-body">
+            
+            <div class="nested-group">
+              <h3 class="group-title">Largo Superior</h3>
+              <div class="nested-grid">
+                <div class="measure-item"><label>Blusa</label><input type="text" formControlName="largoBlusa"></div>
+                <div class="measure-item"><label>Chaleco</label><input type="text" formControlName="largoChaleco"></div>
+                <div class="measure-item"><label>Chaqueta</label><input type="text" formControlName="largoChaqueta"></div>
+              </div>
+            </div>
+
+            <div class="nested-group">
+              <h3 class="group-title">Largo de Manga</h3>
+              <div class="nested-grid">
+                <div class="measure-item"><label>Corta</label><input type="text" formControlName="largoMangaCorta"></div>
+                <div class="measure-item"><label>3/4</label><input type="text" formControlName="largoMangaTresCuartos"></div>
+                <div class="measure-item"><label>Larga</label><input type="text" formControlName="largoMangaLarga"></div>
+              </div>
+            </div>
+
+            <div class="nested-group">
+              <h3 class="group-title">Largo Inferior</h3>
+              <div class="nested-grid">
+                <div class="measure-item"><label>Pantalón</label><input type="text" formControlName="largoPantalon"></div>
+                <div class="measure-item"><label>Falda</label><input type="text" formControlName="largoFalda"></div>
+                <div class="measure-item"><label>Short</label><input type="text" formControlName="largoShort"></div>
+              </div>
+            </div>
+
+            <div class="nested-group">
+              <h3 class="group-title">Tiro</h3>
+              <div class="nested-grid">
+                <div class="measure-item"><label>En U</label><input type="text" formControlName="tiroEnU"></div>
+                <div class="measure-item"><label>Delantero</label><input type="text" formControlName="tiroDelantero"></div>
+                <div class="measure-item"><label>Posterior</label><input type="text" formControlName="tiroPosterior"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- SECCIÓN 5: ADICIONALES -->
+        <div class="premium-card">
+          <div class="card-header">
+            <div class="header-icon"><i class="material-icons">add_circle_outline</i></div>
+            <h2>Medidas Adicionales</h2>
+          </div>
+          <div class="card-body measure-grid">
+            <div class="measure-item"><label>Estatura</label><input type="text" formControlName="estatura"></div>
+            <div class="measure-item"><label>Largo Cola</label><input type="text" formControlName="largoCola"></div>
+            <div class="measure-item"><label>Altura Tacón</label><input type="text" formControlName="alturaTacon"></div>
+            <div class="measure-item"><label>Capa / Velo</label><input type="text" formControlName="capaVelo"></div>
+          </div>
+        </div>
+
+      </div> <!-- End of measurements grid -->
+
+      @if (!dialogRef) {
+        <div class="inline-actions">
+          <button type="button" class="btn-cancelar" (click)="limpiarFormulario()">Limpiar Formulario</button>
+          <button type="submit" class="btn-guardar">Guardar Medidas</button>
+        </div>
+      }
+
+    </form>
+  </div>
+
+  @if (dialogRef) {
+    <div class="modal-footer-nav">
+      <div class="nav-brand">
+        <i class="material-icons">save</i> Medidas del Cliente
+      </div>
+      <div class="nav-buttons">
+        <button type="button" class="btn-cancelar" (click)="onCancel()">Cancelar</button>
+        <button type="button" class="btn-guardar" (click)="onSubmit()">Guardar Ficha</button>
+      </div>
+    </div>
+  }
+</div>

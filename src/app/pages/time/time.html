@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>Registro de Tiempo</h1>
+
+  <div class="header-actions">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>Seleccionar Pedido</mat-label>
+      <input type="text"
+             placeholder="Busca un pedido"
+             aria-label="Pedido"
+             matInput
+             [formControl]="orderCtrl"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOrderSelected($event.option.value)">
+        <mat-option *ngFor="let order of filteredOrders" [value]="order">
+          {{order.title}} (ID: {{order.id}})
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+
+  <div class="order-details" *ngIf="selectedOrder">
+    <h2>{{selectedOrder.title}} - #{{selectedOrder.id}} - {{selectedOrder.client?.name}}</h2>
+  </div>
+
+  <div class="timer-layout" *ngIf="selectedOrder">
+
+    <div class="tracker-container">
+      <div class="timer-display">{{displayTime}}</div>
+      <button mat-fab color="primary" (click)="toggleTimer()">
+        <mat-icon>{{isPlaying ? 'pause' : 'play_arrow'}}</mat-icon>
+      </button>
+      <div class="status-text">{{isPlaying ? 'Contando...' : 'Pausado'}}</div>
+    </div>
+
+    <div class="stats-container">
+      <h3>Estadísticas del Pedido</h3>
+      <div class="stat-item">
+        <span class="stat-label">Tiempo hoy:</span>
+        <span class="stat-value">{{formatMinutes(stats.today)}}</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Tiempo total:</span>
+        <span class="stat-value">{{formatMinutes(stats.total)}}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="no-order" *ngIf="!selectedOrder">
+    <p>Por favor selecciona un pedido para comenzar a trackear el tiempo.</p>
+  </div>
+</div>
