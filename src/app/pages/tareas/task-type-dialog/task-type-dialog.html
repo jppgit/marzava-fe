@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>{{ isEdit ? 'Editar' : 'Nuevo' }} Tipo de Tarea</h2>
+
+<mat-dialog-content [formGroup]="form">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nombre</mat-label>
+    <input matInput formControlName="name">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="save()" [disabled]="form.invalid">Guardar</button>
+</mat-dialog-actions>

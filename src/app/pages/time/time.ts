@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadTimeDialog } from './load-time-dialog/load-time-dialog';
 import { UnsavedTimesDialog } from './unsaved-times-dialog/unsaved-times-dialog';
+import { TasksTypeService, TaskType } from '../../services/tasks-type.service';
 import { OrdersService, Order } from '../../services/orders.service';
 import { TimeService, TimeStats } from '../../services/time.service';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
@@ -30,10 +31,14 @@ export class Time implements OnInit, OnDestroy {
 
   needsToSaveTimes = false;
 
+  taskTypes: TaskType[] = [];
+  selectedTaskTypeId: number | null = null;
+
   constructor(
     private ordersService: OrdersService,
     private timeService: TimeService,
     private timeLocalStorageService: TimeLocalStorageService,
+    private tasksTypeService: TasksTypeService,
     private dialog: MatDialog
   ) { }
 
@@ -53,6 +58,10 @@ export class Time implements OnInit, OnDestroy {
       if (response && response.items) {
         this.filteredOrders = response.items;
       }
+    });
+
+    this.tasksTypeService.findAll().subscribe(types => {
+      this.taskTypes = types;
     });
   }
 
@@ -122,10 +131,11 @@ export class Time implements OnInit, OnDestroy {
 
     // Send time to API
     const minutes = this.timerValue / 60;
-    if (minutes > 0) {
+    if (this.selectedOrder) {
       this.timeService.createTime({
         minutes: minutes,
-        orderId: this.selectedOrder!.id,
+        orderId: this.selectedOrder.id,
+        taskTypeId: this.selectedTaskTypeId ? this.selectedTaskTypeId : undefined
       }).subscribe({
         next: () => {
           this.loadStats();
@@ -136,8 +146,12 @@ export class Time implements OnInit, OnDestroy {
           this.timeLocalStorageService.saveTimeTrack({
             minutes: minutes,
             orderId: this.selectedOrder!.id,
+            taskTypeId: this.selectedTaskTypeId ? this.selectedTaskTypeId : undefined,
             createdAt: new Date().toISOString()
           });
+          this.needsToSaveTimes = true;
+          this.timerValue = 0;
+          this.updateDisplayTime();
         }
       });
     }

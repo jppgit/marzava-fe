@@ -31,6 +31,14 @@
       </mat-autocomplete>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" class="task-type-field">
+      <mat-label>Tipo de Tarea</mat-label>
+      <mat-select [(value)]="selectedTaskTypeId">
+        <mat-option [value]="null">General</mat-option>
+        <mat-option *ngFor="let type of taskTypes" [value]="type.id">{{type.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <button mat-flat-button color="primary" class="load-time-btn" (click)="openLoadTimeDialog()">
       <mat-icon>add_task</mat-icon>
       Cargar Tiempos

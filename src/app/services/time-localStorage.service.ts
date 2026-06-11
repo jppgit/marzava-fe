@@ -8,6 +8,7 @@ export interface TimeRecord {
     minutes: number;
     orderId: number;
     taskName?: string;
+    taskTypeId?: number;
     createdAt?: string;
 }
 

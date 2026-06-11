@@ -21,6 +21,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -40,6 +41,8 @@ import { CostDialog } from './pages/costos/cost-dialog/cost-dialog';
 import { Time } from './pages/time/time';
 import { LoadTimeDialog } from './pages/time/load-time-dialog/load-time-dialog';
 import { UnsavedTimesDialog } from './pages/time/unsaved-times-dialog/unsaved-times-dialog';
+import { Tareas } from './pages/tareas/tareas';
+import { TaskTypeDialog } from './pages/tareas/task-type-dialog/task-type-dialog';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NotificationInterceptor } from './interceptors/notification.interceptor';
 import { ClientMeasurements } from './components/client-measurements/client-measurements';
@@ -65,7 +68,9 @@ import { ClientMeasurements } from './components/client-measurements/client-meas
     CostDialog,
     Time,
     LoadTimeDialog,
-    UnsavedTimesDialog
+    UnsavedTimesDialog,
+    Tareas,
+    TaskTypeDialog
   ],
   imports: [
     BrowserModule,
@@ -92,7 +97,8 @@ import { ClientMeasurements } from './components/client-measurements/client-meas
     ClientMeasurements,
     MatButtonModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTabsModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
