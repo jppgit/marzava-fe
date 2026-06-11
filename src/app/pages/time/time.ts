@@ -122,7 +122,6 @@ export class Time implements OnInit, OnDestroy {
       this.timeService.createTime({
         minutes: minutes,
         orderId: this.selectedOrder!.id,
-        taskName: 'Registro manual'
       }).subscribe({
         next: () => {
           this.loadStats();
@@ -133,7 +132,6 @@ export class Time implements OnInit, OnDestroy {
           this.timeLocalStorageService.saveTimeTrack({
             minutes: minutes,
             orderId: this.selectedOrder!.id,
-            taskName: 'Registro manual',
             createdAt: new Date().toISOString()
           });
         }
