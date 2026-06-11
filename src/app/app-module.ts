@@ -18,6 +18,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatRippleModule } from '@angular/material/core';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -28,6 +29,8 @@ import { Pedidos } from './pages/pedidos/pedidos';
 import { Layout } from './layout/layout';
 import { ClientDialog } from './pages/clientes/client-dialog/client-dialog';
 import { OrderDialog } from './pages/pedidos/order-dialog/order-dialog';
+import { StatusDialog } from './pages/pedidos/status-dialog/status-dialog';
+import { StatusLabelPipe } from './pipes/status-label.pipe';
 import { OrderTypes } from './pages/order-types/order-types';
 import { OrderTypeDialog } from './pages/order-types/order-type-dialog/order-type-dialog';
 import { Costos } from './pages/costos/costos';
@@ -49,13 +52,13 @@ import { ClientMeasurements } from './components/client-measurements/client-meas
     Layout,
     ClientDialog,
     OrderDialog,
+    StatusDialog,
+    StatusLabelPipe,
     OrderTypes,
     OrderTypeDialog,
     Costos,
     CostDialog,
     Time
-
-
   ],
   imports: [
     BrowserModule,
@@ -78,7 +81,9 @@ import { ClientMeasurements } from './components/client-measurements/client-meas
     MatDialogModule,
     MatSelectModule,
     MatAutocompleteModule,
-    ClientMeasurements
+    MatRippleModule,
+    ClientMeasurements,
+    MatButtonModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

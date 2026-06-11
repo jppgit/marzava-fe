@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderDialog } from './order-dialog/order-dialog';
+import { StatusDialog } from './status-dialog/status-dialog';
 import { OrdersService, Order } from '../../services/orders.service';
 import { TimeService } from '../../services/time.service';
 
@@ -135,6 +136,22 @@ export class Pedidos implements OnInit {
       }
     });
 
+  }
+
+  openStatusDialog(order: Order): void {
+    const dialogRef = this.dialog.open(StatusDialog, {
+      width: '400px',
+      data: { orderId: order.id, currentStatus: order.status }
+    });
+
+    dialogRef.afterClosed().subscribe(newStatus => {
+      if (newStatus && newStatus !== order.status) {
+        this.ordersService.updateOrder(order.id, { status: newStatus }).subscribe({
+          next: () => this.loadOrders(),
+          error: (err) => console.error(err)
+        });
+      }
+    });
   }
 
   deleteOrder(order: Order) {

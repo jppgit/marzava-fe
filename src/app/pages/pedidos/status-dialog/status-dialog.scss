@@ -1,0 +1,46 @@
+.dialog-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a1a2e;
+  padding: 16px 24px 8px;
+  border-bottom: 1px solid #e0e0e0;
+  margin: 0;
+
+  .title-icon {
+    color: #3f51b5;
+    font-size: 1.4rem;
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+}
+
+.dialog-content {
+  padding: 24px !important;
+  min-width: 320px;
+
+  .status-field {
+    width: 100%;
+  }
+
+  .status-option {
+    font-weight: 500;
+  }
+}
+
+.dialog-actions {
+  padding: 8px 24px 16px !important;
+  gap: 8px;
+
+  .cancel-btn {
+    color: #666;
+  }
+
+  .save-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+}

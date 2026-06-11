@@ -1,16 +1,20 @@
 <div class="container">
   <h1>Registro de Tiempo</h1>
-
+  @if(needsToSaveTimes){
+  <div class="alert alert-warning">
+    Hay tiempos pendientes de guardar. Por favor guárdalos antes de continuar.
+  </div>
+  <button mat-button (click)="saveTimes()" color="primary"> Guardar Tiempos
+    <mat-icon>save</mat-icon>
+  </button>
+  }
   <div class="header-actions">
     <mat-form-field appearance="outline" class="search-field">
       <mat-label>Seleccionar Pedido</mat-label>
-      <input type="text"
-             placeholder="Busca un pedido"
-             aria-label="Pedido"
-             matInput
-             [formControl]="orderCtrl"
-             [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="onOrderSelected($event.option.value)">
+      <input type="text" placeholder="Busca un pedido" aria-label="Pedido" matInput [formControl]="orderCtrl"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+        (optionSelected)="onOrderSelected($event.option.value)">
         <mat-option *ngFor="let order of filteredOrders" [value]="order">
           {{order.title}} (ID: {{order.id}})
         </mat-option>

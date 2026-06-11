@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { OrdersService, Order } from '../../services/orders.service';
 import { TimeService, TimeStats } from '../../services/time.service';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
+import { TimeLocalStorageService } from '../../services/time-localStorage.service';
 
 @Component({
   selector: 'app-time',
@@ -24,12 +25,16 @@ export class Time implements OnInit, OnDestroy {
   // Stats
   stats: TimeStats = { today: 0, total: 0 };
 
+  needsToSaveTimes = false;
+
   constructor(
     private ordersService: OrdersService,
-    private timeService: TimeService
-  ) {}
+    private timeService: TimeService,
+    private timeLocalStorageService: TimeLocalStorageService
+  ) { }
 
   ngOnInit() {
+    this.needsToSaveTimes = this.timeLocalStorageService.existsTimeTracks();
     this.orderCtrl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged(),
@@ -44,6 +49,21 @@ export class Time implements OnInit, OnDestroy {
       if (response && response.items) {
         this.filteredOrders = response.items;
       }
+    });
+  }
+
+  saveTimes() {
+    const timesToSave = this.timeLocalStorageService.getTimeTracks();
+    timesToSave.forEach((time, index) => {
+      this.timeService.createTime(time).subscribe({
+        next: () => {
+          if (index === timesToSave.length - 1) {
+            this.timeLocalStorageService.clearTimeTracks(index);
+            this.needsToSaveTimes = false;
+          }
+        },
+        error: (err) => console.error(err)
+      });
     });
   }
 
@@ -95,7 +115,7 @@ export class Time implements OnInit, OnDestroy {
   pauseTimer() {
     this.isPlaying = false;
     this.stopTimer();
-    
+
     // Send time to API
     const minutes = this.timerValue / 60;
     if (minutes > 0) {
@@ -109,7 +129,14 @@ export class Time implements OnInit, OnDestroy {
           this.timerValue = 0;
           this.updateDisplayTime();
         },
-        error: (err) => console.error(err)
+        error: (err) => {
+          this.timeLocalStorageService.saveTimeTrack({
+            minutes: minutes,
+            orderId: this.selectedOrder!.id,
+            taskName: 'Registro manual',
+            createdAt: new Date().toISOString()
+          });
+        }
       });
     }
   }

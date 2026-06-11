@@ -20,7 +20,7 @@ export class OrderDialog implements OnInit {
   filteredClients: Client[] = [];
   filteredOrderTypes: OrderType[] = [];
 
-  statuses = ['PENDING', 'COMPLETED', 'CANCELLED'];
+  statuses = ['PENDING', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'];
 
   constructor(
     private fb: FormBuilder,
