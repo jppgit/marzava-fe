@@ -45,6 +45,24 @@
     color: #ef6c00;
   }
 
+  .banner-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .details-link {
+    color: #1976d2;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #0d47a1;
+    }
+  }
+
   .save-times-button {
     background-color: #ff9800;
     color: white;

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { LoadTimeDialog } from './load-time-dialog/load-time-dialog';
+import { UnsavedTimesDialog } from './unsaved-times-dialog/unsaved-times-dialog';
 import { OrdersService, Order } from '../../services/orders.service';
 import { TimeService, TimeStats } from '../../services/time.service';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
@@ -173,6 +174,13 @@ export class Time implements OnInit, OnDestroy {
       if (result && this.selectedOrder) {
         this.loadStats();
       }
+    });
+  }
+
+  openUnsavedTimesDialog() {
+    this.dialog.open(UnsavedTimesDialog, {
+      width: '600px',
+      maxHeight: '90vh'
     });
   }
 }

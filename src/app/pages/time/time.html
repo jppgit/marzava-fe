@@ -9,10 +9,13 @@
         <span class="banner-subtitle">Hay registros almacenados localmente. Guárdalos para sincronizarlos.</span>
       </div>
     </div>
-    <button mat-flat-button (click)="saveTimes()" class="save-times-button">
-      <mat-icon>cloud_upload</mat-icon>
-      Guardar Tiempos
-    </button>
+    <div class="banner-actions">
+      <a class="details-link" (click)="openUnsavedTimesDialog()">Detalles</a>
+      <button mat-flat-button (click)="saveTimes()" class="save-times-button">
+        <mat-icon>cloud_upload</mat-icon>
+        Guardar Tiempos
+      </button>
+    </div>
   </div>
   }
   <div class="header-actions">

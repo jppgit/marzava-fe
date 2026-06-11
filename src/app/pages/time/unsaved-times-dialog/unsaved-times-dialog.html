@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>Detalle de Tiempos Pendientes</h2>
+
+<mat-dialog-content>
+  <div class="time-cards-container">
+    <div class="time-card" *ngFor="let record of records">
+      <div class="time-card-header">
+        <mat-icon color="accent">timer</mat-icon>
+        <span class="time-amount">{{record.minutes | number:'1.0-2'}} min</span>
+      </div>
+      <div class="time-card-body">
+        <ng-container *ngIf="record.loading; else orderDetails">
+          <mat-spinner diameter="20"></mat-spinner> Cargando detalle...
+        </ng-container>
+        <ng-template #orderDetails>
+          <div class="order-info" *ngIf="record.orderData; else noData">
+            <div class="order-title">{{record.orderData.title || 'Pedido ' + record.orderData.id}}
+              (#{{record.orderData.id}})</div>
+            <div class="client-name" *ngIf="record.orderData.client?.name">
+              <mat-icon>person</mat-icon> {{record.orderData.client?.name}}
+            </div>
+          </div>
+          <ng-template #noData>
+            <div class="error-info">Error al cargar datos del pedido (#{{record.orderId}})</div>
+          </ng-template>
+        </ng-template>
+      </div>
+      <div class="time-card-footer" *ngIf="record.createdAt">
+        Registrado: {{record.createdAt | date:'short'}}
+      </div>
+    </div>
+
+    <div *ngIf="records.length === 0" class="no-records">
+      No hay tiempos pendientes.
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">Cerrar</button>
+</mat-dialog-actions>

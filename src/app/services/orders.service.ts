@@ -41,6 +41,10 @@ export class OrdersService {
     return this.http.get<PaginatedOrders | Order[]>(this.apiUrl, { params });
   }
 
+  getOrder(id: number): Observable<Order> {
+    return this.http.get<Order>(`${this.apiUrl}/${id}`);
+  }
+
   createOrder(order: Partial<Order>): Observable<Order> {
     return this.http.post<Order>(this.apiUrl, order);
   }

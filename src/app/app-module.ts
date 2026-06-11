@@ -20,6 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatRippleModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -38,6 +39,7 @@ import { Costos } from './pages/costos/costos';
 import { CostDialog } from './pages/costos/cost-dialog/cost-dialog';
 import { Time } from './pages/time/time';
 import { LoadTimeDialog } from './pages/time/load-time-dialog/load-time-dialog';
+import { UnsavedTimesDialog } from './pages/time/unsaved-times-dialog/unsaved-times-dialog';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NotificationInterceptor } from './interceptors/notification.interceptor';
 import { ClientMeasurements } from './components/client-measurements/client-measurements';
@@ -62,7 +64,8 @@ import { ClientMeasurements } from './components/client-measurements/client-meas
     Costos,
     CostDialog,
     Time,
-    LoadTimeDialog
+    LoadTimeDialog,
+    UnsavedTimesDialog
   ],
   imports: [
     BrowserModule,
@@ -88,7 +91,8 @@ import { ClientMeasurements } from './components/client-measurements/client-meas
     MatRippleModule,
     ClientMeasurements,
     MatButtonModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
