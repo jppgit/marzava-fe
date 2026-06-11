@@ -39,4 +39,8 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+  healthcheck(): Observable<string> {
+    return this.http.get(`${environment.api_host}/healthcheck`, { responseType: 'text' });
+  }
 }
