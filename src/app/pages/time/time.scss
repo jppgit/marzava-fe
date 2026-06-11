@@ -133,5 +133,12 @@
 
 .header-actions {
   margin-bottom: 50px;
-  /* set margin-bottom to 50px */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-field {
+  width: 300px;
+  margin-bottom: -22px;
 }

@@ -37,6 +37,7 @@ import { OrderTypeDialog } from './pages/order-types/order-type-dialog/order-typ
 import { Costos } from './pages/costos/costos';
 import { CostDialog } from './pages/costos/cost-dialog/cost-dialog';
 import { Time } from './pages/time/time';
+import { LoadTimeDialog } from './pages/time/load-time-dialog/load-time-dialog';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NotificationInterceptor } from './interceptors/notification.interceptor';
 import { ClientMeasurements } from './components/client-measurements/client-measurements';
@@ -60,7 +61,8 @@ import { ClientMeasurements } from './components/client-measurements/client-meas
     OrderTypeDialog,
     Costos,
     CostDialog,
-    Time
+    Time,
+    LoadTimeDialog
   ],
   imports: [
     BrowserModule,

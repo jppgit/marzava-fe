@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { LoadTimeDialog } from './load-time-dialog/load-time-dialog';
 import { OrdersService, Order } from '../../services/orders.service';
 import { TimeService, TimeStats } from '../../services/time.service';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
@@ -30,7 +32,8 @@ export class Time implements OnInit, OnDestroy {
   constructor(
     private ordersService: OrdersService,
     private timeService: TimeService,
-    private timeLocalStorageService: TimeLocalStorageService
+    private timeLocalStorageService: TimeLocalStorageService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit() {
@@ -159,5 +162,17 @@ export class Time implements OnInit, OnDestroy {
     const hours = Math.floor(minutes / 60);
     const mins = Math.floor(minutes % 60);
     return `${hours}h ${mins}m`;
+  }
+
+  openLoadTimeDialog() {
+    const dialogRef = this.dialog.open(LoadTimeDialog, {
+      width: '450px'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && this.selectedOrder) {
+        this.loadStats();
+      }
+    });
   }
 }

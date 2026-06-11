@@ -27,6 +27,11 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
+
+    <button mat-flat-button color="primary" class="load-time-btn" (click)="openLoadTimeDialog()">
+      <mat-icon>add_task</mat-icon>
+      Cargar Tiempos
+    </button>
   </div>
 
   <div class="order-details" *ngIf="selectedOrder">

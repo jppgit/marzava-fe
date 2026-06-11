@@ -25,7 +25,7 @@ export class NotificationInterceptor implements HttpInterceptor {
           this.snackBar.open('Operación completada con éxito', 'Cerrar', {
             duration: 3000,
             panelClass: ['success-snackbar'],
-            horizontalPosition: 'center',
+            horizontalPosition: 'right',
             verticalPosition: 'bottom'
           });
         }
@@ -35,7 +35,7 @@ export class NotificationInterceptor implements HttpInterceptor {
           this.snackBar.open('Hubo un error al procesar la solicitud', 'Cerrar', {
             duration: 5000,
             panelClass: ['error-snackbar'],
-            horizontalPosition: 'center',
+            horizontalPosition: 'right',
             verticalPosition: 'bottom'
 
           });
