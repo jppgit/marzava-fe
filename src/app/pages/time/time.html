@@ -1,14 +1,19 @@
 <div class="container">
   <h1>Registro de Tiempo</h1>
   @if(needsToSaveTimes){
-  <div class="alert alert-warning">
-    Hay tiempos pendientes de guardar. Por favor guárdalos antes de continuar.
+  <div class="unsaved-times-banner">
+    <div class="banner-content">
+      <mat-icon class="banner-icon">cloud_off</mat-icon>
+      <div class="banner-text">
+        <span class="banner-title">Tiempos pendientes de guardar</span>
+        <span class="banner-subtitle">Hay registros almacenados localmente. Guárdalos para sincronizarlos.</span>
+      </div>
+    </div>
+    <button mat-flat-button (click)="saveTimes()" class="save-times-button">
+      <mat-icon>cloud_upload</mat-icon>
+      Guardar Tiempos
+    </button>
   </div>
-
-
-  <button mat-button (click)="saveTimes()" color="primary"> Guardar Tiempos
-    <mat-icon>save</mat-icon>
-  </button>
   }
   <div class="header-actions">
     <mat-form-field appearance="outline" class="search-field">
