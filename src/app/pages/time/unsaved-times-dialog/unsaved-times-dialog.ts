@@ -8,6 +8,7 @@ interface EnrichedTimeRecord extends TimeRecord {
   loading: boolean;
 }
 
+
 @Component({
   selector: 'app-unsaved-times-dialog',
   templateUrl: './unsaved-times-dialog.html',
@@ -21,7 +22,7 @@ export class UnsavedTimesDialog implements OnInit {
     public dialogRef: MatDialogRef<UnsavedTimesDialog>,
     private timeLocalStorageService: TimeLocalStorageService,
     private ordersService: OrdersService
-  ) {}
+  ) { }
 
   ngOnInit() {
     const rawRecords = this.timeLocalStorageService.getTimeTracks();
