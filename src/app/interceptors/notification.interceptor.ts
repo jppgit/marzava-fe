@@ -14,7 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 @Injectable()
 export class NotificationInterceptor implements HttpInterceptor {
 
-  constructor(private snackBar: MatSnackBar) {}
+  constructor(private snackBar: MatSnackBar) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const isMutation = ['POST', 'PUT', 'PATCH', 'DELETE'].includes(request.method);
@@ -37,6 +37,7 @@ export class NotificationInterceptor implements HttpInterceptor {
             panelClass: ['error-snackbar'],
             horizontalPosition: 'center',
             verticalPosition: 'bottom'
+
           });
         }
         return throwError(() => error);
