@@ -19,6 +19,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatRippleModule } from '@angular/material/core';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
@@ -37,6 +38,7 @@ import { Costos } from './pages/costos/costos';
 import { CostDialog } from './pages/costos/cost-dialog/cost-dialog';
 import { Time } from './pages/time/time';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { NotificationInterceptor } from './interceptors/notification.interceptor';
 import { ClientMeasurements } from './components/client-measurements/client-measurements';
 
 
@@ -83,11 +85,13 @@ import { ClientMeasurements } from './components/client-measurements/client-meas
     MatAutocompleteModule,
     MatRippleModule,
     ClientMeasurements,
-    MatButtonModule
+    MatButtonModule,
+    MatSnackBarModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: NotificationInterceptor, multi: true }
   ],
   bootstrap: [App]
 })

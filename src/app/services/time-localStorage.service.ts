@@ -44,16 +44,16 @@ export class TimeLocalStorageService {
     }
 
     existsTimeTracks(): boolean {
-        return localStorage.getItem('timeTrack') !== null;
+        return localStorage.getItem('timeTrack') !== null && JSON.parse(localStorage.getItem('timeTrack') || '[]').length > 0;
     }
 
     getTimeTracks(): TimeRecord[] {
         return JSON.parse(localStorage.getItem('timeTrack') || '[]');
     }
 
-    clearTimeTracks(id: number): boolean {
+    clearTimeTracks(i: number): boolean {
         const timesToTrack = JSON.parse(localStorage.getItem('timeTrack') || '[]');
-        const newTimesToTrack = timesToTrack.filter((time: TimeRecord) => time.id !== id);
+        const newTimesToTrack = timesToTrack.filter((time: TimeRecord, index: number) => i !== index);
         localStorage.setItem('timeTrack', JSON.stringify(newTimesToTrack));
         return true;
     }
