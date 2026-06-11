@@ -4,10 +4,35 @@
   <mat-tab-group>
     <mat-tab label="Estadísticas">
       <div class="tab-content">
-        <p>Próximamente...</p>
+        <mat-form-field appearance="outline" class="search-field">
+          <mat-label>Seleccionar Pedido</mat-label>
+          <input type="text" placeholder="Busca un pedido" aria-label="Pedido" matInput [formControl]="orderCtrl"
+            [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+            (optionSelected)="onOrderSelected($event.option.value)">
+            <mat-option *ngFor="let order of filteredOrders" [value]="order">
+              {{order.title}} (ID: {{order.id}})
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <div class="chart-container" *ngIf="statsByTask.length > 0">
+          <h3>Tiempos por Tarea (Pedido: {{selectedOrder?.client?.name}} - {{selectedOrder?.title}})</h3>
+          <div class="bar-row" *ngFor="let stat of statsByTask">
+            <div class="bar-label">{{stat.name}} <span class="bar-time">({{stat.totalMinutes | number:'1.0-2'}}
+                min)</span></div>
+            <div class="bar-wrapper">
+              <div class="bar-fill" [style.width.%]="(stat.totalMinutes / maxMinutes) * 100"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-data" *ngIf="selectedOrder && statsByTask.length === 0">
+          No hay tiempos registrados para este pedido.
+        </div>
       </div>
     </mat-tab>
-    
+
     <mat-tab label="Tipos de Tareas">
       <div class="tab-content">
         <div class="header-actions">

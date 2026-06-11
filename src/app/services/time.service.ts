@@ -17,6 +17,11 @@ export interface TimeStats {
   total: number;
 }
 
+export interface TaskStat {
+  name: string;
+  totalMinutes: number;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -32,5 +37,10 @@ export class TimeService {
   getStats(orderId: number): Observable<TimeStats> {
     const params = new HttpParams().set('orderId', orderId.toString());
     return this.http.get<TimeStats>(`${this.apiUrl}/stats`, { params });
+  }
+
+  getStatsByTask(orderId: number): Observable<TaskStat[]> {
+    const params = new HttpParams().set('orderId', orderId.toString());
+    return this.http.get<TaskStat[]>(`${this.apiUrl}/stats-by-task`, { params });
   }
 }
