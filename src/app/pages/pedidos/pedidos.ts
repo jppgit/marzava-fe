@@ -15,7 +15,7 @@ import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
   styleUrl: './pedidos.scss'
 })
 export class Pedidos implements OnInit {
-  displayedColumns: string[] = ['id', 'title', 'client', 'total', 'costs', 'profit', 'totalTime', 'status', 'orderType', 'actions'];
+  displayedColumns: string[] = ['id', 'title', 'client', 'total', 'costs', 'profit', 'totalTime', 'estimatedTimeInHours', 'status', 'orderType', 'actions'];
 
 
 

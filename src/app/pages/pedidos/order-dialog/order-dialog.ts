@@ -37,7 +37,9 @@ export class OrderDialog implements OnInit {
       total: [data.total || 0, [Validators.required, Validators.min(0)]],
       clientId: [data.clientId, Validators.required],
       orderTypeId: [data.orderTypeId, Validators.required],
-      status: [data.status || 'PENDING', Validators.required]
+      status: [data.status || 'PENDING', Validators.required],
+      estimatedTimeInHours: [data.estimatedTimeInHours || null]
+
     });
   }
 

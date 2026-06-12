@@ -27,7 +27,7 @@ export interface PaginatedOrders {
 export class OrdersService {
   private apiUrl = `${environment.api_host}/orders`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getOrders(searchText?: string, page: number = 1, limit: number = 10): Observable<PaginatedOrders | Order[]> {
     let params = new HttpParams()
@@ -65,7 +65,13 @@ export class OrdersService {
     return this.http.get<any[]>(`${this.apiUrl}/${id}/costs`);
   }
 
+  getProfitOrdersMonth(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/profit-orders-month`);
+  }
 
+  getOrderStatusCount(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/order-status-count`);
+  }
 
 
 }

@@ -1,2 +1,43 @@
-<h1>Home</h1>
-<p>Bienvenido al sistema de Marzava.</p>
+<div class="dashboard-container">
+    <h2 class="section-title">Efemérides del emprendedor</h2>
+
+    <div class="fancy-card">
+        <div class="card-header">
+            <h3 class="card-title">Valor Hora - Pedidos del Mes</h3>
+        </div>
+        <div class="card-content">
+            <h1 class="amount">$ {{valorHoraH}}</h1>
+        </div>
+    </div>
+
+    <div class="fancy-card">
+        <div class="card-header">
+            <h3 class="card-title">Pedidos del Mes Completados</h3>
+        </div>
+        <div class="card-content">
+            <h1 class="amount">{{total.completed}}</h1>
+        </div>
+    </div>
+
+
+    <div class="fancy-card">
+        <div class="card-header">
+            <h3 class="card-title">Pedidos del Mes Pendientes</h3>
+        </div>
+        <div class="card-content">
+            <h1 class="amount">{{total.pending}}</h1>
+        </div>
+    </div>
+
+    <div class="fancy-card">
+        <div class="card-header">
+            <h3 class="card-title">Pedidos del Mes En Proceso</h3>
+        </div>
+        <div class="card-content">
+            <h1 class="amount">{{total.inProgress}}</h1>
+        </div>
+    </div>
+
+
+
+</div>
