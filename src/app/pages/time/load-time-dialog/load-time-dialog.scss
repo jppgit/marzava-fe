@@ -3,6 +3,20 @@
   margin-top: 10px;
 }
 
+.task-type-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  .flex-grow {
+    flex-grow: 1;
+  }
+
+  .add-task-type-btn {
+    margin-top: -22px; // Align visually with the input text
+  }
+}
+
 .time-inputs {
   display: flex;
   gap: 16px;

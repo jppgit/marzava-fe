@@ -12,6 +12,21 @@
     </mat-autocomplete>
   </mat-form-field>
 
+  <div class="task-type-container">
+    <mat-form-field appearance="outline" class="flex-grow">
+      <mat-label>Tipo de Tarea</mat-label>
+      <input type="text" placeholder="Busca un tipo de tarea" aria-label="Tipo de Tarea" matInput [formControl]="taskTypeCtrl" [matAutocomplete]="taskTypeAuto">
+      <mat-autocomplete #taskTypeAuto="matAutocomplete" [displayWith]="displayTaskTypeFn">
+        <mat-option *ngFor="let type of filteredTaskTypes" [value]="type">
+          {{type.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-icon-button color="primary" class="add-task-type-btn" (click)="openTaskTypeDialog()" matTooltip="Crear nuevo tipo de tarea">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
   <div class="time-inputs">
     <mat-form-field appearance="outline" class="flex-grow">
       <mat-label>Cantidad de Tiempo</mat-label>
