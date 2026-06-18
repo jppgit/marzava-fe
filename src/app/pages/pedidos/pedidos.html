@@ -2,11 +2,23 @@
   <h1>Pedidos</h1>
 
   <div class="header-actions">
-    <mat-form-field appearance="outline" class="search-field">
-      <mat-label>Buscar</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Pedido" #input>
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
+    <div class="filters-group">
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar pedido o cliente</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Pedido" #input>
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Estado</mat-label>
+        <mat-select [(ngModel)]="statusFilter" (selectionChange)="onStatusChange()">
+          <mat-option *ngFor="let status of statuses" [value]="status.value">
+            {{status.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-icon matPrefix color="primary" class="filter-icon">filter_list</mat-icon>
+      </mat-form-field>
+    </div>
 
     <button mat-raised-button color="primary" (click)="openDialog()">
       <mat-icon>add</mat-icon> Crear Pedido

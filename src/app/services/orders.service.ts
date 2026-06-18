@@ -29,13 +29,17 @@ export class OrdersService {
 
   constructor(private http: HttpClient) { }
 
-  getOrders(searchText?: string, page: number = 1, limit: number = 10): Observable<PaginatedOrders | Order[]> {
+  getOrders(searchText?: string, page: number = 1, limit: number = 10, status?: string): Observable<PaginatedOrders | Order[]> {
     let params = new HttpParams()
       .set('page', page.toString())
       .set('limit', limit.toString());
 
     if (searchText) {
       params = params.set('searchText', searchText);
+    }
+    
+    if (status) {
+      params = params.set('status', status);
     }
 
     return this.http.get<PaginatedOrders | Order[]>(this.apiUrl, { params });

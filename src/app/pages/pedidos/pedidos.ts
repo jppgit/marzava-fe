@@ -25,6 +25,15 @@ export class Pedidos implements OnInit {
   currentPage = 0;
   pageSizeOptions: number[] = [5, 10, 25, 100];
   searchText = '';
+  statusFilter = '';
+
+  statuses = [
+    { value: '', viewValue: 'Todos' },
+    { value: 'PENDING', viewValue: 'Pendiente' },
+    { value: 'IN_PROGRESS', viewValue: 'En Progreso' },
+    { value: 'COMPLETED', viewValue: 'Completado' },
+    { value: 'CANCELLED', viewValue: 'Cancelado' }
+  ];
 
   private searchSubject = new Subject<string>();
 
@@ -49,7 +58,7 @@ export class Pedidos implements OnInit {
   }
 
   loadOrders() {
-    this.ordersService.getOrders(this.searchText, this.currentPage + 1, this.pageSize)
+    this.ordersService.getOrders(this.searchText, this.currentPage + 1, this.pageSize, this.statusFilter)
       .subscribe({
         next: (response: any) => {
           if (response && response.items) {
@@ -94,6 +103,11 @@ export class Pedidos implements OnInit {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.searchSubject.next(filterValue.trim());
+  }
+
+  onStatusChange() {
+    this.currentPage = 0;
+    this.loadOrders();
   }
 
   formatMinutes(minutes: number): string {

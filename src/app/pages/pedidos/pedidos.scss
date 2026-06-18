@@ -13,6 +13,24 @@
   width: 300px;
 }
 
+.filters-group {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  .search-field {
+    width: 300px;
+  }
+
+  .filter-field {
+    width: 200px;
+
+    .filter-icon {
+      margin-right: 8px;
+    }
+  }
+}
+
 table {
   width: 100%;
 }
