@@ -24,7 +24,8 @@ export class OrderStatsDialog implements OnInit {
     private timeService: TimeService
   ) {
     if (data.totalTime && data.totalTime > 0) {
-      const horas = data.totalTime / 60;
+      let horas = data.totalTime / 60;
+      if (horas < 1) horas = 1; // Mínimo 1 hora para el cálculo
       this.valorHora = data.profit / horas;
     }
 

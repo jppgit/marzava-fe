@@ -124,8 +124,8 @@ export class Pedidos implements OnInit {
       return '';
     }
 
-    const horas = order.totalTime / 60;
-    if (horas === 0) return '';
+    let horas = order.totalTime / 60;
+    if (horas < 1) horas = 1; // Mínimo 1 hora para el cálculo
 
     const valorPorHora = order.profit / horas;
 
