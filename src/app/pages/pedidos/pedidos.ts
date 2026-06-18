@@ -3,6 +3,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { OrderDialog } from './order-dialog/order-dialog';
 import { StatusDialog } from './status-dialog/status-dialog';
+import { OrderStatsDialog } from './order-stats-dialog/order-stats-dialog';
 import { OrdersService, Order } from '../../services/orders.service';
 import { TimeService } from '../../services/time.service';
 
@@ -195,6 +196,13 @@ export class Pedidos implements OnInit {
         error: (err) => console.error(err)
       });
     }
+  }
+
+  openOrderStats(order: any): void {
+    this.dialog.open(OrderStatsDialog, {
+      width: '500px',
+      data: order
+    });
   }
 
 }

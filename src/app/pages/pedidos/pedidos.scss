@@ -111,15 +111,36 @@ table {
   font-weight: bold;
 }
 
+.id-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  cursor: pointer;
+  background-color: #eee;
+  color: #333;
+  transition: opacity 0.2s;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 .id-red {
-  color: #d32f2f !important;
+  background-color: #ffebee !important;
+  color: #c62828 !important;
+  border: 1px solid #ffcdd2;
 }
 
 .id-green {
-  color: #388e3c !important;
+  background-color: #e8f5e9 !important;
+  color: #2e7d32 !important;
+  border: 1px solid #c8e6c9;
 }
 
 .id-yellow {
+  background-color: #fffde7 !important;
   color: #fbc02d !important;
+  border: 1px solid #fff59d;
 }
 

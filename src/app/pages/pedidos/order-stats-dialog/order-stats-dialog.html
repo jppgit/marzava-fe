@@ -1,0 +1,48 @@
+<h2 mat-dialog-title>
+  <div class="header-content">
+    <div class="titles">
+      <span class="client-name">{{data.client?.name}}</span>
+      <span class="order-title">{{data.title}} (#{{data.id}})</span>
+    </div>
+  </div>
+</h2>
+
+<mat-dialog-content>
+  <div class="stats-header">
+    <div class="stat-box">
+      <span class="stat-label">Valor Hora Calculado</span>
+      <span class="stat-value" [ngClass]="colorClass">
+        {{valorHora | currency}} / hr
+      </span>
+      <span class="stat-sub">Mínimo: {{horaSalarioMinimo | currency}}</span>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <h3>Tiempos por Tipo de Tarea</h3>
+    
+    <div *ngIf="loading" class="loading-state">
+      <mat-spinner diameter="40"></mat-spinner>
+    </div>
+
+    <div *ngIf="!loading && taskStats.length === 0" class="empty-state">
+      No hay tiempos registrados para este pedido.
+    </div>
+
+    <div *ngIf="!loading && taskStats.length > 0" class="bars-container">
+      <div class="bar-row" *ngFor="let stat of taskStats">
+        <div class="bar-label">
+          <span class="task-name">{{stat.name || 'General'}}</span>
+          <span class="task-time">{{formatMinutes(stat.totalMinutes)}}</span>
+        </div>
+        <div class="bar-track">
+          <div class="bar-fill" [style.width.%]="getBarWidth(stat.totalMinutes)"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onClose()">Cerrar</button>
+</mat-dialog-actions>

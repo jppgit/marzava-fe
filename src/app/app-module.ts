@@ -46,6 +46,7 @@ import { TaskTypeDialog } from './pages/tareas/task-type-dialog/task-type-dialog
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NotificationInterceptor } from './interceptors/notification.interceptor';
 import { ClientMeasurements } from './components/client-measurements/client-measurements';
+import { OrderStatsDialog } from './pages/pedidos/order-stats-dialog/order-stats-dialog';
 
 
 
@@ -70,7 +71,8 @@ import { ClientMeasurements } from './components/client-measurements/client-meas
     LoadTimeDialog,
     UnsavedTimesDialog,
     Tareas,
-    TaskTypeDialog
+    TaskTypeDialog,
+    OrderStatsDialog
   ],
   imports: [
     BrowserModule,
