@@ -8,3 +8,17 @@
 .full-width {
   width: 100%;
 }
+
+.order-type-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+
+  .flex-grow {
+    flex-grow: 1;
+  }
+
+  .add-order-type-btn {
+    margin-top: -22px; // Align visually with the input text
+  }
+}

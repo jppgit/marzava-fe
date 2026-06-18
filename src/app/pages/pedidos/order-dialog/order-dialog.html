@@ -39,19 +39,23 @@
 
 
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Tipo de Pedido</mat-label>
-      <input type="text" placeholder="Buscar tipo" matInput [formControl]="orderTypeCtrl" [matAutocomplete]="autoType">
-      <mat-autocomplete #autoType="matAutocomplete" [displayWith]="displayOrderTypeFn"
-        (optionSelected)="onOrderTypeSelected($event.option.value)">
-        <mat-option *ngFor="let type of filteredOrderTypes" [value]="type">
-          {{type.name}}
-        </mat-option>
-      </mat-autocomplete>
-      <mat-error *ngIf="form.get('orderTypeId')?.hasError('required')">El tipo es requerido</mat-error>
-    </mat-form-field>
+    <div class="order-type-container">
+      <mat-form-field appearance="outline" class="flex-grow">
+        <mat-label>Tipo de Pedido</mat-label>
+        <input type="text" placeholder="Buscar tipo" matInput [formControl]="orderTypeCtrl" [matAutocomplete]="autoType">
+        <mat-autocomplete #autoType="matAutocomplete" [displayWith]="displayOrderTypeFn"
+          (optionSelected)="onOrderTypeSelected($event.option.value)">
+          <mat-option *ngFor="let type of filteredOrderTypes" [value]="type">
+            {{type.name}}
+          </mat-option>
+        </mat-autocomplete>
+        <mat-error *ngIf="form.get('orderTypeId')?.hasError('required')">El tipo es requerido</mat-error>
+      </mat-form-field>
 
-
+      <button mat-icon-button color="primary" class="add-order-type-btn" (click)="openOrderTypeDialog()" matTooltip="Crear nuevo tipo de pedido">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Estado</mat-label>
       <mat-select formControlName="status" required>

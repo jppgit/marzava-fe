@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ClientsService, Client } from '../../../services/clients.service';
 import { OrderTypesService, OrderType } from '../../../services/order-types.service';
 import { Subject, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { OrderTypeDialog } from '../../order-types/order-type-dialog/order-type-dialog';
 
 @Component({
   selector: 'app-order-dialog',
@@ -27,6 +29,7 @@ export class OrderDialog implements OnInit {
     public dialogRef: MatDialogRef<OrderDialog>,
     private clientsService: ClientsService,
     private orderTypesService: OrderTypesService,
+    private dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.isEdit = !!data.id;
@@ -113,6 +116,22 @@ export class OrderDialog implements OnInit {
 
   onOrderTypeSelected(orderType: OrderType) {
     this.form.patchValue({ orderTypeId: orderType.id });
+  }
+
+  openOrderTypeDialog() {
+    const dialogRef = this.dialog.open(OrderTypeDialog, {
+      width: '400px',
+      data: {} // Empty data for create mode
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result && result.id) {
+        // Option 1: fetch order types again
+        // Option 2: just set the created order type to the control
+        this.orderTypeCtrl.setValue(result);
+        this.form.patchValue({ orderTypeId: result.id });
+      }
+    });
   }
 
   onSave(): void {
