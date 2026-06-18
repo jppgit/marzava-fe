@@ -7,6 +7,7 @@ import { OrdersService, Order } from '../../services/orders.service';
 import { TimeService } from '../../services/time.service';
 
 import { Subject, debounceTime, distinctUntilChanged } from 'rxjs';
+import { HORA_SALARIO_MINIMO } from '../../constants';
 
 @Component({
   selector: 'app-pedidos',
@@ -115,6 +116,25 @@ export class Pedidos implements OnInit {
     const hours = Math.floor(minutes / 60);
     const mins = Math.floor(minutes % 60);
     return hours > 0 ? `${hours}h ${mins}m` : `${mins}m`;
+  }
+
+  getIdColorClass(order: any): string {
+    if (order.profit === undefined || !order.totalTime) {
+      return '';
+    }
+
+    const horas = order.totalTime / 60;
+    if (horas === 0) return '';
+
+    const valorPorHora = order.profit / horas;
+
+    if (valorPorHora < HORA_SALARIO_MINIMO) {
+      return 'id-red';
+    } else if (valorPorHora > HORA_SALARIO_MINIMO * 1.35) {
+      return 'id-green';
+    } else {
+      return 'id-yellow';
+    }
   }
 
 
