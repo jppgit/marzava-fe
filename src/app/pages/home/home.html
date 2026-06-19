@@ -6,7 +6,21 @@
       <h1 class="dash-title">Efemérides del Emprendedor</h1>
       <p class="dash-subtitle">Resumen de métricas clave del negocio</p>
     </div>
-    <div class="dash-date-badge">{{ getMesActual() }}</div>
+    <div class="date-picker-wrapper">
+      <button class="dash-date-btn" (click)="togglePicker($event)">
+        {{ getMesActual() }}
+        <span class="picker-chevron" [class.open]="showPicker">▾</span>
+      </button>
+      <div class="month-picker" *ngIf="showPicker" (click)="$event.stopPropagation()">
+        <div class="month-option"
+          *ngFor="let m of availableMonths"
+          [class.active]="m.month === selectedMonth && m.year === selectedYear"
+          (click)="selectMonth(m)">
+          {{ getMesLabel(m.month, m.year) }}
+        </div>
+        <div class="no-months" *ngIf="availableMonths.length === 0">Sin pedidos registrados</div>
+      </div>
+    </div>
   </div>
 
   <!-- Financiero e Insights -->

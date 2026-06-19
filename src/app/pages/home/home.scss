@@ -63,18 +63,86 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-.dash-date-badge {
+.date-picker-wrapper {
   position: relative;
-  z-index: 1;
+  z-index: 10;
+}
+
+.dash-date-btn {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
   color: rgba(255, 255, 255, 0.9);
-  padding: 10px 24px;
+  padding: 10px 20px;
   border-radius: 100px;
   font-size: 0.875rem;
   font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   backdrop-filter: blur(10px);
   white-space: nowrap;
+  transition: background 0.2s ease;
+  font-family: inherit;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.18);
+  }
+}
+
+.picker-chevron {
+  font-size: 0.7rem;
+  transition: transform 0.2s ease;
+  display: inline-block;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.month-picker {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  background: #ffffff;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+  min-width: 190px;
+  overflow: hidden;
+  z-index: 100;
+  animation: pickerIn 0.15s ease;
+}
+
+@keyframes pickerIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.month-option {
+  padding: 11px 18px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  transition: background 0.12s;
+
+  &:hover {
+    background: #f8fafc;
+  }
+
+  &.active {
+    background: #f0fdf4;
+    color: #059669;
+    font-weight: 700;
+  }
+}
+
+.no-months {
+  padding: 16px 18px;
+  color: #94a3b8;
+  font-size: 0.85rem;
+  text-align: center;
 }
 
 // ── Section labels ──────────────────────────────────────────────────────────

@@ -69,15 +69,28 @@ export class OrdersService {
     return this.http.get<any[]>(`${this.apiUrl}/${id}/costs`);
   }
 
-  getProfitOrdersMonth(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/profit-orders-month`);
+  getProfitOrdersMonth(month?: number, year?: number): Observable<any> {
+    let params = new HttpParams();
+    if (month !== undefined) params = params.set('month', month.toString());
+    if (year !== undefined) params = params.set('year', year.toString());
+    return this.http.get(`${this.apiUrl}/profit-orders-month`, { params });
   }
 
-  getOrderStatusCount(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/order-status-count`);
+  getOrderStatusCount(month?: number, year?: number): Observable<any> {
+    let params = new HttpParams();
+    if (month !== undefined) params = params.set('month', month.toString());
+    if (year !== undefined) params = params.set('year', year.toString());
+    return this.http.get(`${this.apiUrl}/order-status-count`, { params });
   }
 
-  getDashboardStats(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/dashboard-stats`);
+  getDashboardStats(month?: number, year?: number): Observable<any> {
+    let params = new HttpParams();
+    if (month !== undefined) params = params.set('month', month.toString());
+    if (year !== undefined) params = params.set('year', year.toString());
+    return this.http.get(`${this.apiUrl}/dashboard-stats`, { params });
+  }
+
+  getAvailableMonths(): Observable<{ month: number; year: number }[]> {
+    return this.http.get<{ month: number; year: number }[]>(`${this.apiUrl}/available-months`);
   }
 }
