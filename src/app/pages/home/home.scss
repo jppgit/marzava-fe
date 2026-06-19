@@ -63,11 +63,6 @@
   color: rgba(255, 255, 255, 0.5);
 }
 
-.date-picker-wrapper {
-  position: relative;
-  z-index: 10;
-}
-
 .dash-date-btn {
   background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -101,9 +96,7 @@
 }
 
 .month-picker {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
+  position: fixed;
   background: #ffffff;
   border-radius: 14px;
   border: 1px solid #e2e8f0;

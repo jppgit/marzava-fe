@@ -15,6 +15,8 @@ export class Home {
   selectedMonth: number;
   selectedYear: number;
   showPicker = false;
+  pickerTop = 0;
+  pickerRight = 0;
 
   private readonly MESES = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
                              'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -63,6 +65,12 @@ export class Home {
 
   togglePicker(event: Event) {
     event.stopPropagation();
+    if (!this.showPicker) {
+      const btn = event.currentTarget as HTMLElement;
+      const rect = btn.getBoundingClientRect();
+      this.pickerTop = rect.bottom + 10;
+      this.pickerRight = window.innerWidth - rect.right;
+    }
     this.showPicker = !this.showPicker;
   }
 
