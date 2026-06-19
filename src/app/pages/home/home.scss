@@ -1,47 +1,303 @@
-/* Contenedor general */
-.dashboard-container {
-    padding: 20px;
-    font-family: 'Inter', -apple-system, sans-serif;
+.dashboard {
+  padding: 32px;
+  background: #f1f5f9;
+  min-height: 100%;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-/* Estilo del título principal (Efemérides) */
-.section-title {
-    color: #334155;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    font-weight: 700;
+// ── Header ─────────────────────────────────────────────────────────────────
+
+.dash-header {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #162944 100%);
+  border-radius: 20px;
+  padding: 36px 40px;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 10px 40px rgba(15, 23, 42, 0.25);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: -60px;
+    right: -30px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -80px;
+    left: 30%;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
 }
 
-/* Estilo de la Card */
-.fancy-card {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 24px;
-    width: 320px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+.dash-header-left {
+  position: relative;
+  z-index: 1;
 }
 
-.fancy-card:hover {
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    border-color: #cbd5e1;
+.dash-title {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -0.025em;
 }
 
-/* Título interno de la card */
-.card-title {
-    margin: 0;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #64748b;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+.dash-subtitle {
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
 }
 
-/* Valor numérico */
-.amount {
-    margin: 12px 0 0 0;
-    font-size: 2.5rem;
-    font-weight: 800;
-    color: #0f172a;
+.dash-date-badge {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  white-space: nowrap;
+}
+
+// ── Section labels ──────────────────────────────────────────────────────────
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #94a3b8;
+  margin: 0 0 14px 2px;
+}
+
+// ── Grids ───────────────────────────────────────────────────────────────────
+
+.main-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-bottom: 28px;
+}
+
+.status-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+// ── Base card ───────────────────────────────────────────────────────────────
+
+.metric-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 22px 24px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+  }
+
+  &.span-2 {
+    grid-column: span 2;
+  }
+}
+
+// ── Featured card (Ganancia Neta) ──────────────────────────────────────────
+
+.metric-card.featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #059669 0%, #10b981 55%, #34d399 100%);
+  border: none;
+  box-shadow: 0 8px 30px rgba(5, 150, 105, 0.3);
+
+  &::before {
+    display: none;
+  }
+
+  .card-label {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  .card-value {
+    color: #ffffff;
+    font-size: 2.6rem;
+  }
+
+  .card-icon {
+    background: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.95);
+    font-size: 1.1rem;
+  }
+
+  &:hover {
+    box-shadow: 0 16px 48px rgba(5, 150, 105, 0.4);
+  }
+
+  .trend-badge {
+    &.trend-up {
+      background: rgba(255, 255, 255, 0.25);
+      color: rgba(255, 255, 255, 0.95);
+
+      &::before {
+        content: '↑ ';
+      }
+    }
+
+    &.trend-down {
+      background: rgba(0, 0, 0, 0.2);
+      color: rgba(255, 255, 255, 0.9);
+
+      &::before {
+        content: '↓ ';
+      }
+    }
+
+    &.trend-neutral {
+      background: rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.7);
+    }
+  }
+}
+
+// ── Accent top bars ─────────────────────────────────────────────────────────
+
+.accent-blue::before    { background: linear-gradient(90deg, #1d4ed8, #3b82f6); }
+.accent-purple::before  { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+.accent-amber::before   { background: linear-gradient(90deg, #b45309, #f59e0b); }
+.accent-indigo::before  { background: linear-gradient(90deg, #3730a3, #6366f1); }
+.accent-rose::before    { background: linear-gradient(90deg, #9f1239, #fb7185); }
+.accent-success::before { background: linear-gradient(90deg, #065f46, #10b981); }
+.accent-slate::before   { background: linear-gradient(90deg, #334155, #64748b); }
+
+// ── Card icon ───────────────────────────────────────────────────────────────
+
+.card-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.accent-blue-icon    { background: #dbeafe; color: #1d4ed8; }
+.accent-purple-icon  { background: #ede9fe; color: #7c3aed; }
+.accent-amber-icon   { background: #fef3c7; color: #b45309; }
+.accent-indigo-icon  { background: #e0e7ff; color: #3730a3; }
+.accent-rose-icon    { background: #ffe4e6; color: #9f1239; }
+.accent-success-icon { background: #d1fae5; color: #065f46; }
+.accent-slate-icon   { background: #f1f5f9; color: #334155; }
+
+// ── Card internals ──────────────────────────────────────────────────────────
+
+.card-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.card-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.card-value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+
+  &.client-name {
+    font-size: 1.4rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &.card-value-empty {
+    color: #cbd5e1;
+  }
+}
+
+.card-sub {
+  margin: 6px 0 0;
+  font-size: 0.78rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+// ── Trend badges ────────────────────────────────────────────────────────────
+
+.trend-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 100px;
+
+  &.trend-up {
+    background: #dcfce7;
+    color: #15803d;
+
+    &::before {
+      content: '↑ ';
+    }
+  }
+
+  &.trend-down {
+    background: #fee2e2;
+    color: #b91c1c;
+
+    &::before {
+      content: '↓ ';
+    }
+  }
+
+  &.trend-neutral {
+    background: #f1f5f9;
+    color: #94a3b8;
+  }
 }

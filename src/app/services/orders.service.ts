@@ -77,5 +77,7 @@ export class OrdersService {
     return this.http.get(`${this.apiUrl}/order-status-count`);
   }
 
-
+  getDashboardStats(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/dashboard-stats`);
+  }
 }
