@@ -47,8 +47,9 @@ import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { NotificationInterceptor } from './interceptors/notification.interceptor';
 import { ClientMeasurements } from './components/client-measurements/client-measurements';
 import { OrderStatsDialog } from './pages/pedidos/order-stats-dialog/order-stats-dialog';
-
-
+import { CalendarPage } from './pages/calendar/calendar';
+import { WorkTaskDialog } from './pages/calendar/work-task-dialog/work-task-dialog';
+import { ConfirmDialog } from './components/confirm-dialog/confirm-dialog';
 
 
 @NgModule({
@@ -72,7 +73,10 @@ import { OrderStatsDialog } from './pages/pedidos/order-stats-dialog/order-stats
     UnsavedTimesDialog,
     Tareas,
     TaskTypeDialog,
-    OrderStatsDialog
+    OrderStatsDialog,
+    CalendarPage,
+    WorkTaskDialog,
+    ConfirmDialog,
   ],
   imports: [
     BrowserModule,

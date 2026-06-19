@@ -8,6 +8,7 @@ import { OrderTypes } from './pages/order-types/order-types';
 import { Costos } from './pages/costos/costos';
 import { Time } from './pages/time/time';
 import { Tareas } from './pages/tareas/tareas';
+import { CalendarPage } from './pages/calendar/calendar';
 import { Layout } from './layout/layout';
 import { AuthGuard } from './guards/auth.guard';
 
@@ -25,6 +26,7 @@ const routes: Routes = [
       { path: 'costos', component: Costos },
       { path: 'time', component: Time },
       { path: 'tareas', component: Tareas },
+      { path: 'calendar', component: CalendarPage },
 
       { path: '', redirectTo: 'home', pathMatch: 'full' }
     ]

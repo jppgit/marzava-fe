@@ -1,0 +1,92 @@
+<h2 mat-dialog-title>{{ isEditing ? 'Editar Tarea' : 'Nueva Tarea' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="form" class="task-form">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título (opcional)</mat-label>
+      <input matInput formControlName="title" placeholder="Descripción breve">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Pedido *</mat-label>
+      <input type="text" matInput [formControl]="orderCtrl"
+             [matAutocomplete]="orderAuto" placeholder="Buscar pedido...">
+      <mat-autocomplete #orderAuto="matAutocomplete"
+                        [displayWith]="displayOrderFn"
+                        (optionSelected)="onOrderSelected($event.option.value)">
+        <mat-option *ngFor="let o of filteredOrders" [value]="o">
+          <span style="font-weight:500">{{ o.orderType?.name || 'Pedido' }}</span>
+          <span style="color:#64748b;margin-left:6px" *ngIf="o.client?.name">— {{ o.client.name }}</span>
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="form.get('orderId')?.hasError('required')">El pedido es requerido</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Tipo de Tarea</mat-label>
+      <input type="text" matInput [formControl]="taskTypeCtrl"
+             [matAutocomplete]="typeAuto" placeholder="Buscar tipo...">
+      <mat-autocomplete #typeAuto="matAutocomplete"
+                        [displayWith]="displayTaskTypeFn"
+                        (optionSelected)="onTaskTypeSelected($event.option.value)">
+        <mat-option *ngFor="let t of filteredTaskTypes" [value]="t">{{ t.name }}</mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div class="color-row">
+      <span class="color-row-label">Color</span>
+      <div class="color-swatches">
+        <div class="dlg-swatch"
+             *ngFor="let c of COLOR_PALETTE"
+             [style.background]="c"
+             [class.selected]="form.get('color')?.value === c"
+             (click)="form.patchValue({color: c})">
+        </div>
+        <div class="dlg-swatch dlg-swatch-clear"
+             [class.selected]="!form.get('color')?.value"
+             (click)="form.patchValue({color: null})">✕</div>
+      </div>
+    </div>
+
+    <div class="row-fields">
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha</mat-label>
+        <input matInput type="date" formControlName="date">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Hora</mat-label>
+        <input matInput type="time" formControlName="time">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Horas est.</mat-label>
+        <input matInput type="number" formControlName="estimatedHours" step="0.5" min="0.25">
+      </mat-form-field>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width" *ngIf="isEditing">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="status">
+        <mat-option value="PENDING">Pendiente</mat-option>
+        <mat-option value="IN_PROGRESS">En Proceso</mat-option>
+        <mat-option value="COMPLETED">Completado</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Notas</mat-label>
+      <textarea matInput formControlName="notes" rows="3" placeholder="Notas adicionales..."></textarea>
+    </mat-form-field>
+
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-button color="warn" *ngIf="isEditing" (click)="delete()">Eliminar</button>
+  <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">
+    Guardar
+  </button>
+</mat-dialog-actions>

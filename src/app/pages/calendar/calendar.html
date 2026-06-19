@@ -1,0 +1,120 @@
+<div class="cal-page" (click)="closeContextMenu()">
+
+  <!-- ── Navigation bar ─────────────────────────────────────────────── -->
+  <div class="cal-nav-bar">
+    <div class="cal-nav-left">
+      <button class="cal-nav-btn" (click)="prevWeek()">‹</button>
+      <button class="cal-nav-btn today-btn" (click)="goToToday()">Hoy</button>
+      <button class="cal-nav-btn" (click)="nextWeek()">›</button>
+      <span class="cal-week-label">{{ getWeekLabel() }}</span>
+    </div>
+    <button class="new-task-btn" (click)="openDialog()">
+      <span class="plus-icon">+</span>Nueva Tarea
+    </button>
+  </div>
+
+  <!-- ── Calendar body ──────────────────────────────────────────────── -->
+  <div class="cal-body">
+
+    <!-- Day header row (sticky) -->
+    <div class="cal-header-row">
+      <div class="cal-time-gutter"></div>
+      <div class="cal-day-header"
+           *ngFor="let day of days"
+           [class.today-col]="day.isToday">
+        <span class="cal-day-name">{{ day.dayName }}</span>
+        <span class="cal-day-num" [class.today-circle]="day.isToday">{{ day.dayNum }}</span>
+      </div>
+    </div>
+
+    <!-- Scrollable time grid -->
+    <div class="cal-scroll">
+      <div class="cal-grid">
+
+        <!-- Time labels -->
+        <div class="cal-time-col">
+          <div class="cal-time-slot" *ngFor="let h of HOURS">
+            <span class="cal-hour-label">{{ h }}:00</span>
+          </div>
+        </div>
+
+        <!-- Day columns -->
+        <div class="cal-day-col"
+             *ngFor="let day of days"
+             [class.today-bg]="day.isToday"
+             [class.drag-over]="dragOverDayKey === day.dateKey"
+             (click)="onSlotClick(day, $event)"
+             (dragover)="onDragOver(day, $event)"
+             (dragleave)="onDragLeave(day, $event)"
+             (drop)="onDrop(day, $event)">
+
+          <!-- Hour grid lines -->
+          <div class="cal-time-slot" *ngFor="let h of HOURS"></div>
+
+          <!-- Current time indicator -->
+          <div class="current-time-line"
+               *ngIf="day.dateKey === currentDayKey && currentTimeTop > 0"
+               [style.top.px]="currentTimeTop">
+            <div class="current-time-dot"></div>
+          </div>
+
+          <!-- Tasks -->
+          <div class="cal-event"
+               *ngFor="let task of getDayTasks(day.dateKey)"
+               [ngStyle]="getEventStyle(task)"
+               [style.background-color]="getTaskColor(task)"
+               [class.completed]="task.status === 'COMPLETED'"
+               [class.in-progress]="task.status === 'IN_PROGRESS'"
+               [class.is-dragging]="dragTask?.id === task.id"
+               draggable="true"
+               (dragstart)="onDragStart(task, $event)"
+               (dragend)="onDragEnd()"
+               (click)="onEventClick(task, $event)"
+               (contextmenu)="onContextMenu(task, $event)">
+            <div class="cal-event-title">{{ getEventLabel(task) }}</div>
+            <div class="cal-event-sub" *ngIf="task.order?.client?.name">
+              {{ task.order?.client?.name }}
+            </div>
+            <div class="cal-event-time" *ngIf="task.estimatedHours">
+              {{ task.estimatedHours }}h
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Context menu ────────────────────────────────────────────────── -->
+  <div class="ctx-menu"
+       *ngIf="showContextMenu"
+       [style.left.px]="ctxMenuX"
+       [style.top.px]="ctxMenuY"
+       (click)="$event.stopPropagation()">
+    <div class="ctx-menu-item" (click)="cloneTask($event)">
+      <span class="ctx-icon">⧉</span> Clonar tarea
+    </div>
+    <div class="ctx-menu-item" (click)="toggleColorPicker($event)">
+      <span class="ctx-icon ctx-color-dot"
+            [style.background]="ctxMenuTask?.color || '#94a3b8'"></span>
+      Color de tarea
+      <span class="ctx-arrow" [class.open]="showColorPicker">›</span>
+    </div>
+    <div class="ctx-color-palette" *ngIf="showColorPicker" (click)="$event.stopPropagation()">
+      <div class="color-swatch"
+           *ngFor="let c of COLOR_PALETTE"
+           [style.background]="c"
+           [class.selected]="ctxMenuTask?.color === c"
+           (click)="setTaskColor(c, $event)">
+      </div>
+      <div class="color-swatch swatch-clear"
+           [class.selected]="!ctxMenuTask?.color"
+           (click)="setTaskColor(null, $event)">✕</div>
+    </div>
+    <div class="ctx-menu-separator"></div>
+    <div class="ctx-menu-item danger" (click)="deleteTask($event)">
+      <span class="ctx-icon">✕</span> Eliminar
+    </div>
+  </div>
+
+</div>
