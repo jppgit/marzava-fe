@@ -6,8 +6,15 @@ import { UnsavedTimesDialog } from './unsaved-times-dialog/unsaved-times-dialog'
 import { TasksTypeService, TaskType } from '../../services/tasks-type.service';
 import { OrdersService, Order } from '../../services/orders.service';
 import { TimeService, TimeStats } from '../../services/time.service';
-import { Subject, debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, of } from 'rxjs';
 import { TimeLocalStorageService } from '../../services/time-localStorage.service';
+
+interface ActiveTimerState {
+  startTimestamp: number;
+  orderId: number;
+  orderTitle: string;
+  taskTypeId: number | null;
+}
 
 @Component({
   selector: 'app-time',
@@ -25,6 +32,8 @@ export class Time implements OnInit, OnDestroy {
   timerValue = 0; // in seconds
   displayTime = '00:00:00';
   private timerInterval: any;
+  private timerStartTimestamp: number | null = null;
+  private readonly ACTIVE_TIMER_KEY = 'activeTimer';
 
   // Stats
   stats: TimeStats = { today: 0, total: 0 };
@@ -33,6 +42,13 @@ export class Time implements OnInit, OnDestroy {
 
   taskTypes: TaskType[] = [];
   selectedTaskTypeId: number | null = null;
+
+  private visibilityChangeHandler = () => {
+    if (!document.hidden && this.isPlaying && this.timerStartTimestamp) {
+      this.timerValue = Math.floor((Date.now() - this.timerStartTimestamp) / 1000);
+      this.updateDisplayTime();
+    }
+  };
 
   constructor(
     private ordersService: OrdersService,
@@ -63,6 +79,9 @@ export class Time implements OnInit, OnDestroy {
     this.tasksTypeService.findAll().subscribe(types => {
       this.taskTypes = types;
     });
+
+    document.addEventListener('visibilitychange', this.visibilityChangeHandler);
+    this.restoreActiveTimer();
   }
 
   saveTimes() {
@@ -82,6 +101,7 @@ export class Time implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.stopTimer();
+    document.removeEventListener('visibilitychange', this.visibilityChangeHandler);
   }
 
   displayFn(order: Order): string {
@@ -118,18 +138,23 @@ export class Time implements OnInit, OnDestroy {
   }
 
   startTimer() {
+    this.timerStartTimestamp = Date.now() - this.timerValue * 1000;
     this.isPlaying = true;
+    this.saveActiveTimerState();
     this.timerInterval = setInterval(() => {
-      this.timerValue++;
+      this.timerValue = Math.floor((Date.now() - this.timerStartTimestamp!) / 1000);
       this.updateDisplayTime();
     }, 1000);
   }
 
   pauseTimer() {
+    if (this.timerStartTimestamp) {
+      this.timerValue = Math.floor((Date.now() - this.timerStartTimestamp) / 1000);
+    }
     this.isPlaying = false;
     this.stopTimer();
+    this.clearActiveTimerState();
 
-    // Send time to API
     const minutes = this.timerValue / 60;
     if (this.selectedOrder) {
       this.timeService.createTime({
@@ -142,7 +167,7 @@ export class Time implements OnInit, OnDestroy {
           this.timerValue = 0;
           this.updateDisplayTime();
         },
-        error: (err) => {
+        error: () => {
           this.timeLocalStorageService.saveTimeTrack({
             minutes: minutes,
             orderId: this.selectedOrder!.id,
@@ -160,7 +185,42 @@ export class Time implements OnInit, OnDestroy {
   stopTimer() {
     if (this.timerInterval) {
       clearInterval(this.timerInterval);
+      this.timerInterval = null;
     }
+    this.timerStartTimestamp = null;
+  }
+
+  private saveActiveTimerState() {
+    if (!this.selectedOrder || !this.timerStartTimestamp) return;
+    const state: ActiveTimerState = {
+      startTimestamp: this.timerStartTimestamp,
+      orderId: this.selectedOrder.id,
+      orderTitle: this.selectedOrder.title ?? '',
+      taskTypeId: this.selectedTaskTypeId
+    };
+    localStorage.setItem(this.ACTIVE_TIMER_KEY, JSON.stringify(state));
+  }
+
+  private clearActiveTimerState() {
+    localStorage.removeItem(this.ACTIVE_TIMER_KEY);
+  }
+
+  private restoreActiveTimer() {
+    const saved = localStorage.getItem(this.ACTIVE_TIMER_KEY);
+    if (!saved) return;
+    const state: ActiveTimerState = JSON.parse(saved);
+    this.selectedOrder = { id: state.orderId, title: state.orderTitle } as Order;
+    this.orderCtrl.setValue(this.selectedOrder, { emitEvent: false });
+    this.selectedTaskTypeId = state.taskTypeId;
+    this.timerStartTimestamp = state.startTimestamp;
+    this.timerValue = Math.floor((Date.now() - this.timerStartTimestamp) / 1000);
+    this.updateDisplayTime();
+    this.isPlaying = true;
+    this.timerInterval = setInterval(() => {
+      this.timerValue = Math.floor((Date.now() - this.timerStartTimestamp!) / 1000);
+      this.updateDisplayTime();
+    }, 1000);
+    this.loadStats();
   }
 
   updateDisplayTime() {
